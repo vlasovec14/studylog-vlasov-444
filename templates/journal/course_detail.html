@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}{{ course.title }} · StudyLog{% endblock %}
+{% block content %}
+<a class="back-link" href="{% url 'dashboard' %}">← Моё обучение</a>
+<div class="page-heading"><div><p class="eyebrow">{{ course.platform }}</p><h1>{{ course.title }}</h1><p class="muted">{{ course.duration_hours|floatformat:"-2" }} ч материала · Конспектов: {{ note_count }}</p></div><a class="button" href="{% url 'note_add' course.pk %}">+ Записать конспект</a></div>
+<div class="sub-actions"><a href="{% url 'course_edit' course.pk %}">Редактировать курс</a><a class="danger-link" href="{% url 'course_delete' course.pk %}">Удалить курс</a></div>
+<div class="section-heading"><h2>История открытий</h2><span class="muted">По порядку уроков</span></div>
+<div class="notes-list">
+{% for note in notes %}
+  <article class="note"><div class="note-number"><span>УРОК</span><strong>{{ note.lesson_number }}</strong></div><div class="note-body"><div class="note-meta"><time datetime="{{ note.study_date|date:'Y-m-d' }}">{{ note.study_date|date:'d.m.Y' }}</time><div><a href="{% url 'note_edit' note.pk %}">Изменить</a><a class="danger-link" href="{% url 'note_delete' note.pk %}">Удалить</a></div></div><h3>{{ note.topic }}</h3><div class="note-content">{{ note.content|linebreaksbr }}</div></div></article>
+{% empty %}
+  <section class="empty-state"><span class="empty-symbol" aria-hidden="true">✎</span><h2>Что запомнилось на уроке?</h2><p>Запиши первую идею — и здесь начнётся история твоего обучения.</p><a class="button" href="{% url 'note_add' course.pk %}">Написать первый конспект</a></section>
+{% endfor %}
+</div>
+{% endblock %}

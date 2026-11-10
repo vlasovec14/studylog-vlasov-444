@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Моё обучение · StudyLog{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">Твой учебный маршрут</p><h1>Моё обучение</h1><p class="muted">Каждый конспект — ещё один шаг вперёд.</p></div><a class="button" href="{% url 'course_add' %}">+ Добавить курс</a></div>
+<section class="stats" aria-label="Общая статистика">
+  <div><p>Курсов и материалов</p><strong>{{ stats.course_count }}</strong><span>в твоём дневнике</span></div>
+  <div><p>Уроков с конспектом</p><strong>{{ stats.note_count }}</strong><span>знания сохранены</span></div>
+  <div><p>Объём материалов</p><strong>{{ stats.hours|floatformat:"-2" }} <small>ч</small></strong><span>полная длительность курсов</span></div>
+</section>
+<div class="section-heading"><h2>Курсы и материалы</h2><span class="muted">Личная коллекция</span></div>
+<div class="course-grid">
+{% for course in courses %}
+  <article class="course-card"><div class="card-top"><span class="material-icon" aria-hidden="true">↗</span><span class="pill">{{ course.duration_hours|floatformat:"-2" }} ч</span></div>
+    <p class="course-platform">{{ course.platform }}</p><h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
+    <div class="course-progress"><strong>{{ course.note_count }}</strong><span>уроков с конспектом</span></div>
+    <p class="last-study">{% if course.last_studied %}Последнее занятие: {{ course.last_studied|date:'d.m.Y' }}{% else %}Первый конспект ещё впереди{% endif %}</p>
+    <div class="card-actions"><a href="{% url 'course_detail' course.pk %}">Открыть курс →</a><a class="muted" href="{% url 'note_add' course.pk %}">+ Конспект</a></div>
+  </article>
+{% empty %}
+  <section class="empty-state"><span class="empty-symbol" aria-hidden="true">✦</span><h2>Начни с первого курса</h2><p>Добавь курс, вебинар или книгу. После занятия сохрани самое важное в конспекте.</p><a class="button" href="{% url 'course_add' %}">Добавить первый материал</a></section>
+{% endfor %}
+</div>
+<p class="dashboard-footnote">Прогресс — число уроков, для которых ты сохранил конспект. Часы показывают объём курсов, а не фактическое время занятий.</p>
+{% endblock %}
