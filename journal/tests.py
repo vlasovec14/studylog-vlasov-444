@@ -148,6 +148,14 @@ class StudyLogTests(TestCase):
             self.assertTrue(response.context['form'].is_bound)
             self.assertTrue(response.context['form'].errors)
 
+    def test_new_note_defaults_to_today_without_overwriting_existing_date(self):
+        form = LectureNoteForm(course=self.course)
+        self.assertEqual(form['study_date'].value(), timezone.localdate())
+        self.note.study_date = timezone.localdate() - timedelta(days=3)
+        self.note.save()
+        edit_form = LectureNoteForm(instance=self.note, course=self.course)
+        self.assertEqual(edit_form['study_date'].value(), self.note.study_date)
+
     def test_get_requests_do_not_delete_data(self):
         self.client.get(reverse('course_delete', args=[self.course.pk]))
         self.client.get(reverse('note_delete', args=[self.note.pk]))

@@ -17,7 +17,8 @@ class LectureNoteForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # Course comes from an owner-filtered view, never from submitted fields.
         self.instance.course = course
-        self.fields['study_date'].initial = timezone.localdate()
+        if not self.is_bound and not self.instance.pk:
+            self.initial['study_date'] = timezone.localdate()
 
     class Meta:
         model = LectureNote

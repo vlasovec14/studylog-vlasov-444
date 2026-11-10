@@ -12,7 +12,7 @@
 {% for course in courses %}
   <article class="course-card"><div class="card-top"><span class="material-icon" aria-hidden="true">↗</span><span class="pill">{{ course.duration_hours|floatformat:"-2" }} ч</span></div>
     <p class="course-platform">{{ course.platform }}</p><h3><a href="{% url 'course_detail' course.pk %}">{{ course.title }}</a></h3>
-    <div class="course-progress"><strong>{{ course.note_count }}</strong><span>уроков с конспектом</span></div>
+    <div class="course-progress"><strong>{{ course.note_count }}</strong><span>конспектов в дневнике</span></div>
     <p class="last-study">{% if course.last_studied %}Последнее занятие: {{ course.last_studied|date:'d.m.Y' }}{% else %}Первый конспект ещё впереди{% endif %}</p>
     <div class="card-actions"><a href="{% url 'course_detail' course.pk %}">Открыть курс →</a><a class="muted" href="{% url 'note_add' course.pk %}">+ Конспект</a></div>
   </article>
