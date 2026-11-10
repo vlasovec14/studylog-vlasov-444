@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Вход · StudyLog{% endblock %}
+{% block content %}
+<section class="form-shell compact">
+  <p class="eyebrow">С возвращением</p><h1>Продолжим учиться?</h1>
+  <p class="muted">Войди, чтобы открыть свои курсы и конспекты.</p>
+  <form method="post">{% csrf_token %}{% include 'includes/form_fields.html' %}
+    {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+    <button class="button full" type="submit">Войти</button>
+  </form>
+  <p class="form-bottom">Ещё нет аккаунта? <a href="{% url 'signup' %}">Зарегистрироваться</a></p>
+</section>
+{% endblock %}

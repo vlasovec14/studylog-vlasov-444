@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация · StudyLog{% endblock %}
+{% block content %}
+<section class="form-shell compact">
+  <p class="eyebrow">Первый шаг</p><h1>Твоё обучение — в одном месте</h1>
+  <p class="muted">Создай аккаунт. Курсы и заметки будут доступны только тебе.</p>
+  <form method="post">{% csrf_token %}{% include 'includes/form_fields.html' %}<button class="button full" type="submit">Создать аккаунт</button></form>
+  <p class="form-bottom">Уже зарегистрирован? <a href="{% url 'login' %}">Войти</a></p>
+</section>
+{% endblock %}

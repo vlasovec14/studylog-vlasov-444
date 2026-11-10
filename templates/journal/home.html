@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Личный дневник обучения</p>
+    <h1>Новые знания.<br>Заметный <em>прогресс.</em></h1>
+    <p class="hero-description">Собери курсы, вебинары и полезные материалы в одном месте. Сохраняй главное после каждого урока — и возвращайся к своим открытиям.</p>
+    <div class="actions">{% if user.is_authenticated %}<a class="button" href="{% url 'dashboard' %}">Открыть моё обучение →</a>{% else %}<a class="button" href="{% url 'signup' %}">Начать свой дневник →</a><a class="secondary-link" href="{% url 'login' %}">Уже есть аккаунт</a>{% endif %}</div>
+    <p class="quiet">Без лишних инструментов. С фокусом на знаниях.</p>
+  </div>
+  <div class="hero-notebook" aria-label="Возможности дневника">
+    <div class="notebook-top"><span>ТВОЙ УЧЕБНЫЙ ДНЕВНИК</span><span>✦</span></div>
+    <h2>Маленькие шаги.<br>Большие открытия.</h2>
+    <div class="notebook-line"><span class="step">01</span><div><strong>Сохрани материал</strong><p>Курс, автор и продолжительность</p></div></div>
+    <div class="notebook-line"><span class="step">02</span><div><strong>Запиши главное</strong><p>Тема урока, идеи и дата изучения</p></div></div>
+    <div class="notebook-line"><span class="step">03</span><div><strong>Увидь свой путь</strong><p>Все курсы и конспекты под рукой</p></div></div>
+    <div class="notebook-bottom">Знания остаются с тобой <span>↗</span></div>
+  </div>
+</section>
+<section class="home-bottom"><p class="eyebrow">Пространство для твоего роста</p><h2>Не просто пройти. Понять и запомнить.</h2><p class="muted">От первой лекции до последнего вебинара — сохрани то, что действительно пригодится.</p></section>
+{% endblock %}
