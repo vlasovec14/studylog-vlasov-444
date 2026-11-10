@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}{{ heading }} · StudyLog{% endblock %}
+{% block content %}
+<section class="form-shell compact">
+  <a class="back-link" href="{% url 'course_detail' course.pk %}">← К курсу</a>
+  <p class="eyebrow">Подтверждение действия</p><h1>{{ heading }}</h1><h2>{{ object_label }}</h2><p class="muted">{{ warning }}</p>
+  <form method="post">{% csrf_token %}<div class="actions"><button class="button danger" type="submit">Да, удалить</button><a href="{% url 'course_detail' course.pk %}">Отмена</a></div></form>
+</section>
+{% endblock %}

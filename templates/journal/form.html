@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ heading }} · StudyLog{% endblock %}
+{% block content %}
+<section class="form-shell">
+  {% if course %}<a class="back-link" href="{% url 'course_detail' course.pk %}">← К курсу</a>{% else %}<a class="back-link" href="{% url 'dashboard' %}">← Моё обучение</a>{% endif %}
+  <p class="eyebrow">Сохрани важное</p><h1>{{ heading }}</h1><p class="muted">{{ intro }}</p>
+  <form method="post">{% csrf_token %}{% include 'includes/form_fields.html' %}
+    <div class="actions"><button class="button" type="submit">Сохранить</button>{% if course %}<a href="{% url 'course_detail' course.pk %}">Отмена</a>{% else %}<a href="{% url 'dashboard' %}">Отмена</a>{% endif %}</div>
+  </form>
+</section>
+{% endblock %}
